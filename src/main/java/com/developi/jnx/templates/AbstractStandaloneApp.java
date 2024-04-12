@@ -63,6 +63,8 @@ public abstract class AbstractStandaloneApp {
     private void initDotenv() {
         // This is first time. It will load the .env file.
         Dotenv dotenv = Dotenv.configure()
+                              .directory(System.getProperty("user.home"))
+                              .filename(".engage24demo.env")
                               .ignoreIfMalformed()
                               .ignoreIfMissing()
                               .load();
