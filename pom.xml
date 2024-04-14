@@ -10,6 +10,7 @@
     <modules>
         <module>langchain4j-demos-cli</module>
         <module>langchain4j-demo-commons</module>
+        <module>langchain4j-demo-addin</module>
     </modules>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -21,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <version-langchain4j>0.29.1</version-langchain4j>
-        <version-jnx>1.39.1</version-jnx>
+        <version-jnx>1.40.0-SNAPSHOT</version-jnx>
     </properties>
 
     <licenses>
