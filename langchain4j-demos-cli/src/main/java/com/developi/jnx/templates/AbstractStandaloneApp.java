@@ -11,9 +11,11 @@ import java.util.logging.Logger;
 public abstract class AbstractStandaloneApp {
 
     private static final Logger logger = Logger.getLogger(AbstractStandaloneApp.class.getName());
+    private String[] args;
 
-    public void run() {
+    public void run(String[] args) {
         init();
+        this.args = args;
 
         // Set the jnx.skipNotesThread property to true to avoid creating a NotesThread.
         // Otherwise, we are going to spend precious time to find a non-error exception!
@@ -37,7 +39,7 @@ public abstract class AbstractStandaloneApp {
                                                       .asIDUser()
                                                       .build()) {
 
-                _run(ctx, dc);
+                _run(dc);
             }
 
         } catch (Throwable t) {
@@ -64,7 +66,7 @@ public abstract class AbstractStandaloneApp {
         // This is first time. It will load the .env file.
         Dotenv dotenv = Dotenv.configure()
                               .directory(System.getProperty("user.home"))
-                              .filename(".engage24demo.env")
+                              .filename(".env")
                               .ignoreIfMalformed()
                               .ignoreIfMissing()
                               .load();
@@ -74,9 +76,12 @@ public abstract class AbstractStandaloneApp {
               .forEach(e -> System.setProperty(e.getKey(), e.getValue()));
     }
 
+    public String[] getArgs() {
+        return args == null ? new String[0] : args;
+    }
 
     protected abstract void _init();
 
-    protected abstract void _run(DominoProcess.DominoThreadContext ctx, DominoClient dominoClient);
+    protected abstract void _run(DominoClient dominoClient);
 
 }
