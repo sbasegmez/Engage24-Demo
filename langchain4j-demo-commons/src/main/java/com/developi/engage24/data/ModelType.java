@@ -1,8 +1,8 @@
 package com.developi.engage24.data;
 
 public enum ModelType {
-    LOCAL_MINILM("Local - MiniLm", 384),
-    CLOUD_OPENAI("Cloud - OpenAI", 768);
+    LOCAL("Local", 0),
+    CLOUD_OPENAI("Cloud - OpenAI", 512); // 512 is the optimal dimension of the OpenAI model
 
     private final String label;
     private final int dimension;

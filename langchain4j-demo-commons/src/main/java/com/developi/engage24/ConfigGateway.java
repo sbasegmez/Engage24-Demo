@@ -22,6 +22,12 @@ public class ConfigGateway {
         // Make sure we have a replica on wherever we are running.
         Database dbConfig = dominoClient.openDatabase(DEMOSDB_FILEPATH);
 
+        String overrideConfigDocumentUNID = System.getProperty("OVERRIDE_CONFIG_DOCUMENT_UNID");
+        if(StringUtils.isNotEmpty(overrideConfigDocumentUNID)) {
+            System.out.println("Using override config document with UNID: " + overrideConfigDocumentUNID);
+            return dbConfig.getDocumentByUNID(overrideConfigDocumentUNID);
+        }
+
         String serverName = dbConfig.getServer();
         if(serverName == null || serverName.isEmpty()) {
             serverName = dominoClient.getIDUserName();

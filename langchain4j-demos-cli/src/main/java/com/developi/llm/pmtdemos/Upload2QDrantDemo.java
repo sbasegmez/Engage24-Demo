@@ -5,7 +5,6 @@ import com.developi.engage24.data.EmbeddingSource;
 import com.developi.engage24.data.ModelType;
 import com.developi.jnx.templates.AbstractStandaloneApp;
 import com.hcl.domino.DominoClient;
-import dev.langchain4j.model.embedding.AllMiniLmL6V2EmbeddingModel;
 
 public class Upload2QDrantDemo extends AbstractStandaloneApp {
 
@@ -24,21 +23,36 @@ public class Upload2QDrantDemo extends AbstractStandaloneApp {
     @Override
     protected void _run(DominoClient dominoClient) {
 
-        QDrantUploader uploader = new QDrantUploader(
-                EmbeddingSource.PROJECTS,
-                ModelType.LOCAL_MINILM,
-                new AllMiniLmL6V2EmbeddingModel());
-
         String[] args = getArgs();
-
         // We will ignore this...
-        uploader.setRecreate(args.length > 0 && args[0].equals("recreate"));
-        uploader.setCounterConsumer(count -> {
-            if (count % 500 == 0) System.out.println("Uploaded " + count + " embeddings to QDrant!");
-        });
-        uploader.setMessageConsumer(System.out::println);
+        boolean recreate = args.length > 0 && args[0].equals("recreate");
 
-        uploader.run(dominoClient);
+        // This is with the local model
+        QDrantUploader uploader1 = new QDrantUploader(
+                EmbeddingSource.PROJECTS,
+                ModelType.LOCAL);
+
+        uploader1.setRecreate(recreate);
+        uploader1.setCounterConsumer(count -> {
+            if (count % 500 == 0) System.out.println("LocalModel: Uploaded " + count + " embeddings to QDrant!");
+        });
+        uploader1.setMessageConsumer(System.out::println);
+
+        uploader1.run(dominoClient);
+
+
+        // This is with the local model
+        QDrantUploader uploader2 = new QDrantUploader(
+                EmbeddingSource.PROJECTS,
+                ModelType.CLOUD_OPENAI);
+
+        uploader2.setRecreate(recreate);
+        uploader2.setCounterConsumer(count -> {
+            if (count % 500 == 0) System.out.println("CloudModel: Uploaded " + count + " embeddings to QDrant!");
+        });
+        uploader2.setMessageConsumer(System.out::println);
+
+        uploader2.run(dominoClient);
 
     }
 

@@ -9,6 +9,18 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <artifactId>langchain4j-demos-cli</artifactId>
 
@@ -17,12 +29,6 @@
             <groupId>com.developi</groupId>
             <artifactId>langchain4j-demo-commons</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
-            <version>${version-langchain4j}</version>
         </dependency>
 
         <!-- Various utilities -->

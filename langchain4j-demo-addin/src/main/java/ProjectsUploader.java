@@ -7,7 +7,6 @@ import com.hcl.domino.exception.QuitPendingException;
 import com.hcl.domino.mq.MessageQueue;
 import com.hcl.domino.server.RunJavaAddin;
 import com.hcl.domino.server.ServerStatusLine;
-import dev.langchain4j.model.embedding.AllMiniLmL6V2EmbeddingModel;
 
 public class ProjectsUploader extends RunJavaAddin {
 
@@ -22,7 +21,7 @@ public class ProjectsUploader extends RunJavaAddin {
         statusLine.setLine("Engage 2024 Projects Uploader");
 
         try {
-            QDrantUploader uploader = new QDrantUploader(EmbeddingSource.PROJECTS, ModelType.LOCAL_MINILM, new AllMiniLmL6V2EmbeddingModel());
+            QDrantUploader uploader = new QDrantUploader(EmbeddingSource.PROJECTS, ModelType.LOCAL);
 
             uploader.setMessageConsumer(System.out::println);
 

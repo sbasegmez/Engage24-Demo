@@ -2,11 +2,14 @@ package com.developi.engage24;
 
 import com.developi.engage24.data.EmbeddingSource;
 import com.developi.engage24.data.ModelType;
+import com.developi.langchain4j.xsp.model.LocalModels;
 import com.hcl.domino.DominoClient;
 import com.hcl.domino.data.Document;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
+import dev.langchain4j.model.openai.OpenAiEmbeddingModelName;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.qdrant.QdrantEmbeddingStore;
 import io.qdrant.client.QdrantClient;
@@ -18,20 +21,20 @@ import java.util.function.Consumer;
 
 public class QDrantUploader {
 
-    private static final String COLLECTION_NAME = "projects";
-
     private final EmbeddingSource source;
     private final ModelType modelType;
-    private final EmbeddingModel model;
 
     private boolean recreate = true;
     private Consumer<Long> counterConsumer;
     private Consumer<String> messageConsumer;
 
-    public QDrantUploader(EmbeddingSource source, ModelType modelType, EmbeddingModel model) {
+    private String collectionName = "projects";
+    private EmbeddingModel model;
+    private int dimensions = 384;
+
+    public QDrantUploader(EmbeddingSource source, ModelType modelType) {
         this.source = source;
         this.modelType = modelType;
-        this.model = model;
     }
 
     public void setRecreate(boolean recreate) {
@@ -68,18 +71,30 @@ public class QDrantUploader {
 
         message("Uploading embeddings to QDrant!");
         message("Acting as '" + dominoClient.getEffectiveUserName() + "'");
+
         // Incremental upload has not been implemented yet. So we will override existing embeddings all the time.
         this.recreate = true;
 
-        message("Using model: " + model.getClass()
-                                       .getCanonicalName());
-
         Document configDoc = ConfigGateway.getEmbeddingConfigDocument(dominoClient, source, modelType)
-                                          .orElseThrow(() -> new RuntimeException("Embedding configuration document not found!"));
+                                      .orElseThrow(() -> new RuntimeException("Embedding configuration document not found!"));
+
+        this.collectionName = configDoc.get("QDrantCollectionName", String.class, "projects");
+
+        if (modelType == ModelType.LOCAL) {
+            this.model = LocalModels.getOnnxModel(configDoc.get("ModelName", String.class, null));
+            this.dimensions = configDoc.get("ModelDimension", Integer.class, 384);
+        } else if (modelType == ModelType.CLOUD_OPENAI) {
+            this.dimensions = modelType.getDimension();
+            this.model = OpenAiEmbeddingModel.builder()
+                                             .apiKey(configDoc.get("OpenAIKey", String.class, "demo"))
+                                             .modelName(OpenAiEmbeddingModelName.TEXT_EMBEDDING_3_LARGE)
+                                             .dimensions(this.dimensions)
+                                             .build();
+        } else {
+            throw new RuntimeException("Model type not supported: " + modelType);
+        }
 
         EmbeddingStore<TextSegment> embeddingStore = createEmbeddingStore(
-                recreate,
-                modelType.getDimension(),
                 configDoc.get("QDrantServer", String.class, "localhost"),
                 configDoc.get("QDrantPort", Integer.class, 6334)
         );
@@ -104,7 +119,7 @@ public class QDrantUploader {
 
     private boolean isCollectionExists(QdrantClient client) {
         try {
-            Collections.CollectionInfo info = client.getCollectionInfoAsync(QDrantUploader.COLLECTION_NAME)
+            Collections.CollectionInfo info = client.getCollectionInfoAsync(this.collectionName)
                                                     .get();
 
             return (null != info);
@@ -119,20 +134,20 @@ public class QDrantUploader {
     private void removeCollection(QdrantClient client) {
         try {
             message("Deleting existing collection...");
-            client.deleteCollectionAsync(QDrantUploader.COLLECTION_NAME)
+            client.deleteCollectionAsync(this.collectionName)
                   .get();
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete collection", e);
         }
     }
 
-    private void createCollection(QdrantClient client, int dimension) {
+    private void createCollection(QdrantClient client) {
         try {
             client.createCollectionAsync(
-                          QDrantUploader.COLLECTION_NAME,
+                          this.collectionName,
                           Collections.VectorParams.newBuilder()
                                                   .setDistance(Collections.Distance.Cosine)
-                                                  .setSize(dimension)
+                                                  .setSize(this.dimensions)
                                                   .build())
                   .get();
         } catch (Exception e) {
@@ -140,31 +155,27 @@ public class QDrantUploader {
         }
     }
 
-    private EmbeddingStore<TextSegment> createEmbeddingStore(boolean forceRecreate,
-                                                             int dimension,
-                                                             String qHost,
-                                                             int qPort
-    ) {
+    private EmbeddingStore<TextSegment> createEmbeddingStore(String qHost, int qPort) {
         QdrantClient client =
                 new QdrantClient(
                         QdrantGrpcClient.newBuilder(qHost, qPort, false)
                                         .build());
 
         if (isCollectionExists(client)) {
-            if (forceRecreate) {
+            if (isRecreate()) {
                 message("Recreating collection...");
                 removeCollection(client);
-                createCollection(client, dimension);
+                createCollection(client);
             }
         } else {
             message("Creating collection for the first time...");
-            createCollection(client, dimension);
+            createCollection(client);
         }
 
         // We'll use the client object to create the embedding store
         return QdrantEmbeddingStore.builder()
                                    .client(client)
-                                   .collectionName(QDrantUploader.COLLECTION_NAME)
+                                   .collectionName(this.collectionName)
                                    .build();
 
     }
