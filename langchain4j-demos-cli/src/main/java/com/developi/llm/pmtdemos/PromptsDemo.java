@@ -3,6 +3,7 @@ package com.developi.llm.pmtdemos;
 import com.developi.jnx.templates.AbstractStandaloneApp;
 import com.hcl.domino.DominoClient;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.model.openai.OpenAiChatModelName;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 
@@ -15,7 +16,7 @@ public class PromptsDemo extends AbstractStandaloneApp {
         new PromptsDemo().run(args);
     }
 
-    interface Assistant {
+    interface DemoAiService {
 
         @SystemMessage("""
                 The user will give a sentence from a user comment. Provide a sentiment for the sentence.
@@ -31,12 +32,14 @@ public class PromptsDemo extends AbstractStandaloneApp {
 
     @Override
     protected void _run(DominoClient dominoClient) {
-        Assistant assistant = AiServices.builder(Assistant.class)
-                                        .chatLanguageModel(OpenAiChatModel.builder()
-                                                                          .apiKey(System.getProperty("OPENAI_API_KEY"))
-                                                                          .temperature(0.1)
-                                                                          .build())
-                                        .build();
+        DemoAiService demoAiService = AiServices.builder(DemoAiService.class)
+                                                .chatLanguageModel(OpenAiChatModel.builder()
+                                                                                  .modelName(OpenAiChatModelName.GPT_3_5_TURBO_0125)
+                                                                                  .apiKey(System.getProperty(
+                                                                                          "OPENAI_API_KEY"))
+                                                                                  .temperature(0.1)
+                                                                                  .build())
+                                                .build();
 
         List<String> sentences = Arrays.asList(
                 "I love this product!",
@@ -45,9 +48,8 @@ public class PromptsDemo extends AbstractStandaloneApp {
                 "Best product in the hall of shame!"
         );
 
-        sentences.forEach(sentence -> {
-            System.out.println("\nSentence: " + sentence + "\nSentiment: " + assistant.ask(sentence));
-        });
+        sentences.forEach(sentence -> System.out.println("\nSentence: " + sentence + "\n>> " + demoAiService.ask(
+                sentence)));
 
     }
 }

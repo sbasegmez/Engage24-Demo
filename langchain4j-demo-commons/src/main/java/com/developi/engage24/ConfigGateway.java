@@ -18,9 +18,18 @@ public class ConfigGateway {
     public static final String DEMOSDB_FILEPATH = "demos/engage24.nsf";
 
     public static Optional<Document> getEmbeddingConfigDocument(DominoClient dominoClient, EmbeddingSource source, ModelType modelType) {
+        return getEmbeddingConfigDocument(dominoClient, null, source, modelType);
+    }
+
+    public static Optional<Document> getEmbeddingConfigDocument(DominoClient dominoClient, String serverName, EmbeddingSource source, ModelType modelType) {
+        String dbPath = DEMOSDB_FILEPATH;
+
+        if(serverName != null && !serverName.isEmpty()) {
+            dbPath = serverName + "!!" + DEMOSDB_FILEPATH;
+        }
 
         // Make sure we have a replica on wherever we are running.
-        Database dbConfig = dominoClient.openDatabase(DEMOSDB_FILEPATH);
+        Database dbConfig = dominoClient.openDatabase(dbPath);
 
         String overrideConfigDocumentUNID = System.getProperty("OVERRIDE_CONFIG_DOCUMENT_UNID");
         if(StringUtils.isNotEmpty(overrideConfigDocumentUNID)) {
@@ -28,13 +37,8 @@ public class ConfigGateway {
             return dbConfig.getDocumentByUNID(overrideConfigDocumentUNID);
         }
 
-        String serverName = dbConfig.getServer();
-        if(serverName == null || serverName.isEmpty()) {
-            serverName = dominoClient.getIDUserName();
-        }
-
         final List<Object> keys = Arrays.asList(
-                StringUtils.defaultIfEmpty(dbConfig.getServer(), "Local"),
+                StringUtils.firstNonEmpty(serverName, dbConfig.getServer(), "Local"),
                 source.getLabel(),
                 modelType.getLabel());
 
