@@ -1,0 +1,26 @@
+---
+class: 4
+flags: 0x0000
+unid: OFDA90CD70AFA0C6DB-ON006F549F00258AEF
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: WEB-INF/classes/META-INF/services/com.ibm.xsp.core.events.ApplicationListener
+    signed: true
+  - name: $Flags
+    type: text
+    data: ~C4g
+  - name: $FlagsExt
+    type: text
+    data: w
+  - name: $TITLE
+    type: text
+    data: WEB-INF/classes/META-INF/services/com.ibm.xsp.core.events.ApplicationListener
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

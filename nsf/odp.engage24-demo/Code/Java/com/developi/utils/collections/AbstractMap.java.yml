@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OFF5DC4EBB25EF3F93-ON0070090900258AEF
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: com/developi/utils/collections/AbstractMap.java
+    signed: true
+  - name: $Flags
+    type: text
+    data: "34567Cg~["
+  - name: $TITLE
+    type: text
+    data: com/developi/utils/collections/AbstractMap.java
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

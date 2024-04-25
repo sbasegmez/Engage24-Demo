@@ -1,0 +1,286 @@
+---
+class: 8
+flags: 0x0000
+unid: OF8FCC1A0141D55A32-ON0070326300258AF9
+items:
+  - name: $Collation
+    type_num: 2
+    type: opaque
+    opaque: |
+      PwADAABECGYAAAAMAIBmAAwADwCAZgAbAAkAVmFsaWRTZXJ2ZXJzRW1iZWRkaW5nU291cmNlTW9kZWxU
+      eXBl
+  - name: $Comment
+    type: text
+    data: ""
+    signed: true
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $Flags
+    type: text
+    data: PY
+  - name: $Fonts
+    type: text
+    data:
+      - "6"
+      - "0"
+      - Arial
+    signed: true
+  - name: $FormatNote
+    type: noteref
+    data:
+      - OFB84E2E99F628B190-ON0061C39B00258AEC
+  - name: $Formula
+    type: formula
+    data: " Form=\"EmbeddingConfig\""
+    opaque: |
+      eAAFAEQAPwAFAAwADwAJAAkABABWYWxpZFNlcnZlcnNFbWJlZGRpbmdTb3VyY2VNb2RlbFR5cGUkQ29u
+      ZmxpY3QkUkVGAAQABAAAACQABQAEAEZvcm0BAA8ARW1iZWRkaW5nQ29uZmlnAAoCAwAHAAoABAAJTDFT
+    signed: true
+  - name: $FormulaClass
+    type: text
+    data: "1"
+    signed: true
+  - name: $Index
+    type: text
+    data: ""
+    signed: true
+  - name: $TITLE
+    type: text
+    data: (EmbeddingConfigs)
+    signed: true
+  - name: $ViewFormat
+    type_num: 5
+    type: opaque
+    opaque: |
+      AQADAAYAiAQAAVZDAQQMAAcAAAAAAIIABgAACgABAAAAAAAAAAICAAAAVkMBAA8ABgAAAAAAawAGAAAK
+      AAAAAAAAAAAAAgIAAABWQwEACQAFAAAAAABtAAYAAAoAAAAAAAAAAAACAgAAAFZhbGlkU2VydmVyc1Nl
+      cnZlcnNFbWJlZGRpbmdTb3VyY2VTb3VyY2VNb2RlbFR5cGVNb2RlbCYAAQAAAAEBAAkBAAAKAQEACgAA
+      AQCtKwECLwABAAAAAAAAAAAAV0MGAN8JAAAAAAAAAAAAAAAAAAAAAAAAEAgAADIA//8AAAAAAAAAAAAA
+      AAAAAFdDBgDfCQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAP//AAAAAAAAAAAAAAAAAABXQwYA3wkAAAAA
+      AAAAAAAAAAAAAAAAAAAEAAAAAAD//wAAAAAAAAAAAAAAAAAAQgCRAAAAAQD39/cAAQD///8AAQDGxsYA
+      AAAAAAAAAAABAP///wABAObm5gAAAAEAAGawAAEAAGawAAEAAAAAAAAA9v8yAAAAAAADABMAEAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAHZpZXcvY2hldnJvbi5wbmcIAAAAAAABAGBDHAABAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAA=
+    signed: true
+  - name: $V5ACTIONS
+    type: composite
+    signed: true
+    nonsummary: true
+    data:
+      - type: 0xff8b
+        opaque: i/8oAAEABQBBcmlhbABBAAAAAAAAAAAAAC4BAAAyzgEAAP6iAgAAJA==
+      - type: 0x00bd
+        BackColor: 47
+        BorderStyle: 0
+        BorderWidth: 0
+        BtnHeight: 29
+        FontID: 0x0adf0005
+        HeightSpc: 29
+        LineColor: 0
+        LineStyle: 1
+        ShareID: 0x00000000
+        dwFlags: 0x00021b01
+      - type: 0xff79
+        BackColor:
+          Flags: 0x0001
+          rgb: 0xf7f7f7
+        BtnBorderDisplay: 0
+        BtnTextJustify: 0
+        BtnWidthStyle: 1
+        ButtonColor:
+          Flags: 0x0001
+          rgb: 0xf7f7f7
+        FontColor:
+          Flags: 0x0001
+          rgb: 0x262626
+        LineColor:
+          Flags: 0x0001
+          rgb: 0x000000
+        Spare:
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+          - 0x00000000
+        barFontID: 0x09000005
+        barHeight:
+          Flags: 0x0000
+          Length:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+          Reserved: 0
+          Units: 0
+        dwFlags: 0x00000003
+        wAppletHeight: 31
+        wBarBackgroundRepeat: 0
+        wBtnInternalMargin: 4
+        wBtnWidthAbsolute: 0
+        wSpare: 0x0000
+        wThemeSetting: 0
+      - type: 0xfffc
+        BorderFlags: 0
+        BorderStyle: 1
+        BorderWidthBottom: 2
+        BorderWidthLeft: 0
+        BorderWidthRight: 0
+        BorderWidthTop: 0
+        Color:
+          Flags: 0x0001
+          rgb: 0xc6c6c6
+        DropShadowWidth: 0
+        Flags: 0x00000000
+        InnerWidthBottom: 0
+        InnerWidthLeft: 0
+        InnerWidthRight: 0
+        InnerWidthTop: 0
+        OuterWidthBottom: 0
+        OuterWidthLeft: 0
+        OuterWidthRight: 0
+        OuterWidthTop: 0
+        dwSpare: 0x00000000
+        wSpares:
+          - 0x0000
+          - 0x0000
+          - 0x0000
+          - 0x0000
+          - 0x0000
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: AQBOfA==
+        title: Categori_ze
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: AgACCg==
+        title: _Edit Document
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: AwADCg==
+        title: _Send Document
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: BAAECg==
+        title: _Forward
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: BQA9fA==
+        title: _Move To Folder...
+      - type: 0xffbe
+        Flags: 0x0000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 5
+        opaque: BgA+fA==
+        title: _Remove From Folder
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: BwBefA==
+        title: _Read
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: CABufA==
+        title: _Unread
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: CQB+fA==
+        title: _Open in New Window
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: CgCOfA==
+        title: _Print...
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: CwCefA==
+        title: _Delete
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: DACufA==
+        title: _Document Properties
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: DQC+fA==
+        title: C_ut
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: DgDOfA==
+        title: _Copy
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: DwDefA==
+        title: Copy as Document _Link
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: EADufA==
+        title: Copy as _Table
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: EQD+fA==
+        title: P_aste
+      - type: 0xffbe
+        Flags: 0x4000019d
+        IconIndex: 0
+        ShareId: 0
+        Type: 4
+        opaque: EgAOfQ==
+        title: _Open
+remaining: []

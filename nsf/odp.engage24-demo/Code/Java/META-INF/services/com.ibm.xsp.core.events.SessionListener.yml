@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OFDBC586A8BD662133-ON007131F600258AEC
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: META-INF/services/com.ibm.xsp.core.events.SessionListener
+    signed: true
+  - name: $Flags
+    type: text
+    data: "34567Cg~["
+  - name: $TITLE
+    type: text
+    data: META-INF/services/com.ibm.xsp.core.events.SessionListener
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

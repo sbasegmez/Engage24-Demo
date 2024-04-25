@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:text
+		escape="true"
+		id="computedField2"
+		tagName="h1"
+		value="Integrating to Large Language Models..."></xp:text>
+		
+	<hr/>
+		
+	<xp:link escape="true" text="Demo1 : Few Shots example" id="link1"
+		styleClass="h3 d-block" value="/fewshots.xsp">
+	</xp:link>
+
+	<xp:link escape="true" text="Demo2 : Semantic Search" id="link2"
+		styleClass="h3 d-block" value="/semanticSearch.xsp">
+	</xp:link>
+
+	<xp:link escape="true" text="Demo3 : Helpful Assistant" id="link3"
+		styleClass="h3 d-block" value="/chat.xsp">
+	</xp:link>
+</xp:view>

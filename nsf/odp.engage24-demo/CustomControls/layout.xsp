@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.beforePageLoad>
+		<xp:executeScript script="#{pages.beforePageLoad}"></xp:executeScript>
+	</xp:this.beforePageLoad>
+	<xp:this.afterPageLoad>
+		<xp:executeScript script="#{pages.afterPageLoad}"></xp:executeScript>
+	</xp:this.afterPageLoad>
+
+	<xe:keepSessionAlive id="keepSessionAlive1"></xe:keepSessionAlive>
+
+	<nav
+		class="navbar navbar-dark unfixed-top bg-dark flex-md-nowrap p-0 mb-0 shadow">
+			
+			<!-- Main navbar -->
+		<xc:layout_navbar></xc:layout_navbar>
+
+	</nav>
+
+	<xp:div styleClass="container-fluid">
+
+		<xp:div styleClass="row">
+
+				<!-- Inner content -->
+			<main
+				role="main"
+				class="col-sm-12 px-4">
+	
+					<!-- Content area -->
+				<xp:div styleClass="content">
+					<xp:callback
+						facetName="content"
+						id="callback1"></xp:callback>
+				</xp:div>
+	
+					<!-- Footer here if needed -->
+
+			</main> <!-- /inner content main -->
+		</xp:div> <!-- Row -->
+	</xp:div> <!-- /main container -->
+
+</xp:view>

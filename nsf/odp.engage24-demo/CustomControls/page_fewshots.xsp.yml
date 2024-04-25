@@ -1,0 +1,45 @@
+---
+class: 4
+flags: 0x0000
+unid: OF660E065ECE55B4FD-ON004B288800258B04
+items:
+  - name: $ConfigSize
+    type: number
+    data: 583
+    signed: true
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.2
+  - name: $FileNames
+    type: text
+    data: page_fewshots.xsp
+    signed: true
+  - name: $Flags
+    type: text
+    data: gC~4;
+  - name: $TITLE
+    type: text
+    data: page_fewshots.xsp
+    signed: true
+  - name: $ConfigData
+    signed: true
+    nonsummary: true
+    type: opaque
+    type_num: 1
+    opaque: |
+      YQAYAAAAAABHAgAAAQAAAAAAAAAAAAAAYABZAgAARwJIAgAAAAAAAAAAPD94bWwgdmVyc2lvbj0iMS4w
+      IiBlbmNvZGluZz0iVVRGLTgiPz4KPGZhY2VzLWNvbmZpZz4KICA8ZmFjZXMtY29uZmlnLWV4dGVuc2lv
+      bj4KICAgIDxuYW1lc3BhY2UtdXJpPmh0dHA6Ly93d3cuaWJtLmNvbS94c3AvY3VzdG9tPC9uYW1lc3Bh
+      Y2UtdXJpPgogICAgPGRlZmF1bHQtcHJlZml4PnhjPC9kZWZhdWx0LXByZWZpeD4KICA8L2ZhY2VzLWNv
+      bmZpZy1leHRlbnNpb24+CiAgPGNvbXBvc2l0ZS1jb21wb25lbnQ+CiAgICA8Y29tcG9uZW50LXR5cGU+
+      cGFnZV9mZXdzaG90czwvY29tcG9uZW50LXR5cGU+CiAgICA8Y29tcG9zaXRlLW5hbWU+cGFnZV9mZXdz
+      aG90czwvY29tcG9zaXRlLW5hbWU+CiAgICA8Y29tcG9zaXRlLWZpbGU+L3BhZ2VfZmV3c2hvdHMueHNw
+      PC9jb21wb3NpdGUtZmlsZT4KICAgIDxjb21wb3NpdGUtZXh0ZW5zaW9uPgogICAgICA8ZGVzaWduZXIt
+      ZXh0ZW5zaW9uPgogICAgICAgIDxpbi1wYWxldHRlPnRydWU8L2luLXBhbGV0dGU+CiAgICAgIDwvZGVz
+      aWduZXItZXh0ZW5zaW9uPgogICAgPC9jb21wb3NpdGUtZXh0ZW5zaW9uPgogIDwvY29tcG9zaXRlLWNv
+      bXBvbmVudD4KPC9mYWNlcy1jb25maWc+CmU=
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:link
+		styleClass="navbar-brand col-sm-3 col-md-3 mr-0"
+		text="${javascript:@DbTitle()}"
+		value="/index.xsp">
+	</xp:link>
+	<xe:linksList
+		id="linksList1"
+		styleClass="nav justify-content-end">
+		<xe:this.treeNodes>
+			<xe:basicContainerNode
+				label="Admin"
+				href="#"
+				loaded="${user.admin}">
+				<xe:this.children>
+					<xe:basicLeafNode
+						label="Reload appSetup"
+						submitValue="reloadConfig">
+					</xe:basicLeafNode>
+				</xe:this.children>
+			</xe:basicContainerNode>
+			<xe:basicContainerNode
+				label="#{user.commonName}"
+				href="#">
+				<xe:this.children>
+					<xe:basicLeafNode
+						label="Logout"
+						href="${eddie.logoutLink}">
+					</xe:basicLeafNode>
+				</xe:this.children>
+			</xe:basicContainerNode>
+		</xe:this.treeNodes>
+		<xp:eventHandler
+			event="onItemClick"
+			submit="true"
+			refreshMode="norefresh"
+			disableValidators="true"
+			execMode="partial"
+			execId="linksList1">
+			<xe:this.action>
+				<xp:executeScript script="#{pages.layoutClicked}"></xp:executeScript>
+			</xe:this.action>
+		</xp:eventHandler>
+	</xe:linksList>
+</xp:view>

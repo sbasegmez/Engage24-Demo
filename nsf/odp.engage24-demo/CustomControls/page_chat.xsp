@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:text escape="true" id="computedField2" tagName="h1"
+		value="Helpful Assistant...">
+	</xp:text>
+
+	<hr />
+
+	<xp:div styleClass="row my-3">
+
+		<xp:div styleClass="col-sm-10">
+			<xp:div
+				styleClass="chatMessages border border-info rounded-lg overflow-auto">
+			</xp:div>
+		</xp:div>
+	</xp:div>
+	<xp:div styleClass="row my-3">
+		<xp:div styleClass="col-sm-10">
+			<xp:div styleClass="input-group fix">
+				<xp:inputText id="userMsg1" styleClass="userMessage"
+					value="#{viewScope.userMessage}">
+					<xp:eventHandler event="onkeypress" submit="false">
+						<xp:this.script><![CDATA[
+						if(thisEvent.keyCode && thisEvent.keyCode==13) {
+							thisEvent.preventDefault();
+							dojo.byId("#{id:submitBtn}").click();
+						}
+						
+						return false;
+						]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:inputText>
+				<xp:div styleClass="input-group-append">
+					<xp:button styleClass="btn btn-sm btn-outline-secondary"
+						id="submitBtn" value="Send" onclick="sendMessage()"
+						disableTheme="true">
+						<i class="fa fa-share" />
+					</xp:button>
+				</xp:div>
+			</xp:div>
+		</xp:div>
+	</xp:div>
+
+	<xe:jsonRpcService id="chatService"
+		pathInfo="chatService" serviceName="chatService" state="true">
+		<xe:this.methods>
+			<xe:remoteMethod name="sendMessage"
+				script="chatter.sendMessage(messageText)">
+				<xe:this.arguments>
+					<xe:remoteMethodArg name="messageText"
+						type="string">
+					</xe:remoteMethodArg>
+				</xe:this.arguments>
+			</xe:remoteMethod>
+		</xe:this.methods>
+	</xe:jsonRpcService>
+
+	<xp:br></xp:br>
+
+<!-- 	<xp:text id="test1112" value="${el:chatter.sendMessage('hello!')}"></xp:text> -->
+</xp:view>

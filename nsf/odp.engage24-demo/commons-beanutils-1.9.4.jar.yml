@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OF752648BAEDA102B8-ON00713C0800258AEC
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: commons-beanutils-1.9.4.jar
+    signed: true
+  - name: $Flags
+    type: text
+    data: "34567Cg~,"
+  - name: $TITLE
+    type: text
+    data: commons-beanutils-1.9.4.jar
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

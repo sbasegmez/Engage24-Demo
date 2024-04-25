@@ -1,0 +1,123 @@
+
+.navbar-brand {
+  line-height: 1.5em;
+}
+
+/* xsp.mixin distorted it */
+.input-group.fix {
+	display:flex!important;
+}
+
+.sidebar {
+  background-color: white!important;
+}
+
+.search-result-box {
+	min-height: 200px;
+	font-size: 1.1em;
+}
+
+.search-result-box div:nth-child(even) {
+  	background-color: #EEEEEE;
+}
+
+.loading-indicator {
+	background-image: url(loading.gif);
+  	background-repeat: no-repeat;
+  	background-position: center;
+}
+
+.chatMessages {
+	height:600px;
+	color: #333333;
+}
+
+.chatMessages .line {
+	margin: 16px 0px;
+	padding: 0px 8px;
+	border-bottom: 1px solid #FFF6F6;
+}
+
+.userMessage,
+.chatMessages,
+.searchBox,
+.commentBox {
+	font-size: 1.3em;
+}
+
+.chatMessages .line .who {
+	width: 75px; 
+	display: block;
+	float: left;
+	margin-right: 15px;
+	color: #CC99AA;
+	text-align: right;
+}
+
+.chatMessages .line .message {
+	display: block;
+	color: darkblue;
+	padding-left: 90px;
+}
+	
+	
+
+.field-panel > .panel-heading {
+  color:#CC6600;
+  font-weight: bold;
+  font-size: 0.9em;
+  letter-spacing: 0.8px;
+  background-color: white;  
+}
+
+.field-panel > .panel-heading,
+.field-panel > .panel-body {
+  padding:3px 6px;
+}
+
+.field-panel label,
+.field-panel table thead th {
+  color:#999999;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size:0.9em;
+}
+
+.field-panel .form-control-static {
+  padding: 0px;
+}
+.field-panel .form-control-static:empty:before, 
+.field-panel .form-control-static table:empty:before {
+	content: "-";
+}
+
+.field-panel .form-control,
+.field-panel .form-control-static,
+.field-panel table tbody td {
+  color:#003366; 
+  font-size:0.95em;
+}
+
+.field-panel .form-group {
+	margin-bottom: 5px;
+}
+
+th.fit, td.fit {
+	white-space: nowrap;
+	width: 1%;
+	padding: 0px 4px;
+}
+
+.field-panel .panel-heading .actions {
+	font-size: 0.9em;
+}
+
+.field-panel tr .action {
+	opacity:0.1;
+}
+
+.field-panel tr:hover .action {
+	opacity:1;
+}
+
+

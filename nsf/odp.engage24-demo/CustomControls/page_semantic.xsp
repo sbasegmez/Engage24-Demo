@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:text escape="true" id="computedField2" tagName="h1"
+		value="Semantic Search...">
+	</xp:text>
+
+	<hr />
+
+	<xp:div styleClass="row my-3">
+		<xp:div styleClass="col-sm-12">
+			<xp:div styleClass="form-inline">
+				<xp:label value="Search Projects:" id="label1"
+					for="search1" styleClass="h4">
+				</xp:label>
+				<xp:inputText id="search1"
+					styleClass="searchBox w-25 mx-4" value="#{viewScope.searchText}">
+					<xp:eventHandler event="onkeypress" submit="false">
+						<xp:this.script><![CDATA[
+						if(thisEvent.keyCode && thisEvent.keyCode==13) {
+							thisEvent.preventDefault();
+							dojo.byId("#{id:searchBtn}").click();
+						}
+						
+						return false;
+						]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:inputText>
+				<xp:button styleClass="btn btn-primary" id="searchBtn"
+					value="Search" onclick="startSearch1()">
+					<i class="fa fa-search" />
+				</xp:button>
+				<xp:button styleClass="btn btn-primary" id="button1"
+					value="Semantic Search" onclick="startSearch2()">
+					<i class="fa fa-search" />
+				</xp:button>
+			</xp:div>
+		</xp:div>
+	</xp:div>
+
+	<xp:div id="searchResults"
+		styleClass="searchResults row my-2 d-none">
+
+		<xp:div styleClass="searchResults1 col-sm-4 p-4 d-none">
+			<xp:text id="hdr1" tagName="h4"
+				value="Full-text Search">
+			</xp:text>
+			<xp:div
+				styleClass="fulltextSearchResults search-result-box border border-info rounded-lg">
+			</xp:div>
+		</xp:div>
+
+		<xp:div styleClass="searchResults2 col-sm-4 p-4 d-none">
+			<xp:text id="hdr2" tagName="h4"
+				value="Semantic Search w/ Local Model">
+			</xp:text>
+			<xp:div
+				styleClass="semanticLocalSearchResults search-result-box border border-info rounded-lg">
+			</xp:div>
+		</xp:div>
+
+		<xp:div styleClass="searchResults2 col-sm-4 p-4 d-none">
+			<xp:text id="computedField1" tagName="h4"
+				value="Semantic Search Result w/ OpenAI">
+			</xp:text>
+			<xp:div
+				styleClass="semanticCloudSearchResults search-result-box border border-info rounded-lg">
+			</xp:div>
+		</xp:div>
+	</xp:div>
+
+	<xe:jsonRpcService id="searchService"
+		pathInfo="searchService" serviceName="searchService" state="false">
+		<xe:this.methods>
+			<xe:remoteMethod name="searchSemanticLocal"
+				script="semantic.searchSemanticLocal(searchText)">
+				<xe:this.arguments>
+					<xe:remoteMethodArg name="searchText"
+						type="string">
+					</xe:remoteMethodArg>
+				</xe:this.arguments>
+			</xe:remoteMethod>
+			<xe:remoteMethod name="searchSemanticCloud"
+				script="semantic.searchSemanticCloud(searchText)">
+				<xe:this.arguments>
+					<xe:remoteMethodArg name="searchText"
+						type="string">
+					</xe:remoteMethodArg>
+				</xe:this.arguments>
+			</xe:remoteMethod>
+			<xe:remoteMethod name="searchFulltext"
+				script="semantic.searchFulltext(searchText)">
+				<xe:this.arguments>
+					<xe:remoteMethodArg name="searchText"
+						type="string">
+					</xe:remoteMethodArg>
+				</xe:this.arguments>
+			</xe:remoteMethod>
+		</xe:this.methods>
+	</xe:jsonRpcService>
+
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	
+<!-- 	<xp:text id="test1112" value="${el:semantic.searchSemanticLocal('logging')}"></xp:text> -->
+	</xp:view>

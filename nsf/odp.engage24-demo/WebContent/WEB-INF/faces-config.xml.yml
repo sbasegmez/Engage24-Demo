@@ -1,0 +1,26 @@
+---
+class: 4
+flags: 0x0000
+unid: OFB67F34FFCEEB3CF6-ON006F543500258AEF
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: WEB-INF/faces-config.xml
+    signed: true
+  - name: $Flags
+    type: text
+    data: ~C4g
+  - name: $FlagsExt
+    type: text
+    data: w
+  - name: $TITLE
+    type: text
+    data: WEB-INF/faces-config.xml
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

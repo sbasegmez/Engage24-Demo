@@ -1,0 +1,26 @@
+---
+class: 4
+flags: 0x0000
+unid: OFF026A95247D659E4-ON0045233F00258B00
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: favicon.ico
+    signed: true
+  - name: $Flags
+    type: text
+    data: 345CgQ
+  - name: $FlagsExt
+    type: text
+    data: D
+  - name: $TITLE
+    type: text
+    data: favicon.ico
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

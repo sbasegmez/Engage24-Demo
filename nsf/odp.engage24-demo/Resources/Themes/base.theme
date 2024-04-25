@@ -1,0 +1,31 @@
+<theme extends="bootstrap4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd" >
+
+	<!-- Control declarations -->
+	<control override="false">
+		<name>ViewRoot</name>
+		<property>
+			<name>pageTitle</name>
+			<value>#{javascript:@DbTitle()}</value>
+		</property>
+	</control>
+
+	<control override="false">
+		<name>ViewRoot</name>
+		<property>
+			<name>pageIcon</name>
+			<value>favicon.ico</value>
+		</property>
+	</control>
+
+	<!-- Resource declarations -->
+	<resource>
+		<content-type>text/css</content-type>
+		<href>style.css</href>
+	</resource>
+
+	<resource>
+		<content-type>application/x-javascript</content-type>
+		<href>utilities.js</href>
+	</resource>
+
+</theme>

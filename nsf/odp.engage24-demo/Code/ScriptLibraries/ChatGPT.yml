@@ -1,0 +1,346 @@
+---
+class: 512
+flags: 0x2000
+unid: OFA0B37DC1DFEBF2C5-ON006347E900258B05
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $Flags
+    type: text
+    data: s34Q
+  - name: $PublicAccess
+    type: text
+    data: "1"
+    signed: true
+  - name: $ScriptLib
+    type: text
+    data: |
+      '++LotusScript Development Environment:2:5:(Options):0:74
+      %REM
+      	Library ChatGPT
+      	Modified 10.04.2024 by
+      		Serdar Basegmez/Developi
+      	
+      	Created 25.02.2023 by 
+      		Ayhan Sahin/FDI		<ayhan.sahin@fdi.de>
+      		Christian Sadeghi/SUEDWESTMETALL	<sadeghi@suedwestmetall.de>
+      	Description: Simple ChatGPT API Client
+      %END REM
+      Option Public
+      Option Declare
+      Use "JSONParser"
+      
+      '++LotusScript Development Environment:2:5:(Forward):0:1
+      Declare Class ChatGPT
+      
+      '++LotusScript Development Environment:2:5:(Declarations):0:10
+      Class ChatGPT
+      	
+      	Private systemmessage As String
+      	Private usermessage As String
+      	
+      	Private config As Variant
+      	Private request As String
+      	Private apiurl As String
+      	Private apikey As String
+      	Private modell As String
+      	Private maxtokens As String
+      	Private temperature As String
+      	Private presencepenalty As String
+      	Private frequencypenalty As String
+      	Private topp As String
+      	Private responsetype As String
+      
+      
+      
+      	%REM 
+      		Constructor
+      	%END REM
+      	Sub New ()
+      		Call setup()
+      	End Sub
+      	
+      	
+      	
+      	%REM 
+      		Destructor
+      	%END REM
+      	Sub Delete()
+      	End Sub
+      	
+      	
+      	
+      	%REM
+      		Main routine to build and query ChatGPT API
+      		@ToDo: Extend the checks on oRequest after request for errors
+      	%END REM		
+      	Public Function init(systemmessage As String, usermessage As String, aConfig As Variant)
+      		Dim s As New NotesSession
+      		Dim oRequest As NotesHTTPRequest
+      		Dim sResponseContent As String
+      		Dim oResponseHeaders As Variant
+      		
+      		'	Set query and config
+      		Me.systemmessage = cGetQuery(systemmessage)
+      		Me.usermessage = cGetQuery(usermessage)
+      		Me.config		= aConfig
+      		
+      		'	Setup / Override the config
+      		Call setConfig()
+      
+      		'	Validate and request the API
+      		If isValidRequest Then
+      			Me.request = cGetRequestContent()
+      			Me.apiurl = cGetAPIUrl()
+      			
+      			'	Do the request
+      			Set oRequest = s.CreateHTTPRequest()
+      			oRequest.Preferstrings = True
+      			Call oRequest.SetHeaderField("Content-Type", "application/json")
+      			Call oRequest.SetHeaderField("Authorization", "Bearer " + Me.apikey)
+      			sResponseContent = oRequest.post(Me.apiurl, Me.request)
+      			oResponseHeaders = oRequest.Getresponseheaders()
+      			
+      			'	***	Simple check (needs to be extended)
+      			If UCase(oRequest.Responsecode) <> "HTTP/1.1 200 OK" Then
+      				Print(sResponseContent)
+      				If Me.responsetype = "TEXT" Then
+      					sResponseContent = |{"choices":[{text:"| + oRequest.ResponseCode + |"}, {"text": "There was an error retrieving the API response"}]}|
+      				Else
+      					sResponseContent = |{"status":"| + oRequest.ResponseCode + |", "message": "There was an error retrieving the API response"}|
+      				End If
+      			End If
+      		End If
+      
+      		'	***	Return-Mode of the response
+      		If Me.responsetype = "TEXT" Then
+      			'sResponseContent = getResponseAsText(sResponseContent)
+      		Else
+      			'	Fix the response for a valid JSON if empty
+      			If sResponseContent = "" Then
+      				sResponseContent = "[]"
+      			End If
+      		End If
+      
+      		init = sResponseContent
+      		
+      	End Function
+      	
+      	
+      	
+      	%REM
+      		Function setup
+      		Description: Set default values for this class
+      	%END REM
+      	Private Function setup()
+      		Me.apikey			= ""
+      		Me.modell 			= "text-davinci-003"
+      		Me.maxtokens 		= "100"
+      		Me.temperature 		= "0"
+      		Me.presencepenalty 	= "0"
+      		Me.frequencypenalty = "0"
+      		Me.topp				= "1"
+      		Me.responsetype		= "JSON"
+      	End Function
+      	
+      	
+      	
+      	%REM
+      		Function setConfig
+      		Description: Sets / Overrides the current config from the given one
+      	%END REM
+      	Private Function setConfig()
+      		If getConfigKey("apikey") <> "" Then
+      			Me.apikey = getConfigKey("apikey")
+      		End If
+      		If getConfigKey("modell") <> "" Then
+      			Me.modell = getConfigKey("modell")
+      		End If
+      		If getConfigKey("maxtokens") <> "" Then
+      			Me.maxtokens = getConfigKey("maxtokens")
+      		End If
+      		If getConfigKey("temperature") <> "" Then
+      			Me.temperature = getConfigKey("temperature")
+      		End If
+      		If getConfigKey("presencepenalty") <> "" Then
+      			Me.presencepenalty = getConfigKey("presencepenalty")
+      		End If
+      		If getConfigKey("frequencypenalty") <> "" Then
+      			Me.frequencypenalty = getConfigKey("frequencypenalty")
+      		End If
+      		If getConfigKey("topp") <> "" Then
+      			Me.topp = getConfigKey("topp")
+      		End If
+      		If getConfigKey("responsetype") <> "" Then
+      			Me.responsetype = getConfigKey("responsetype")
+      		End If
+      	End Function
+      	
+      	
+      	
+      	%REM
+      		Function getConfigKey
+      		Description: Returns values from given configuration key
+      	%END REM
+      	Private Function getConfigKey(key As String) As String
+      		If IsElement(Me.config(key)) = True Then
+      			getConfigKey = Me.config(key)
+      		Else
+      			getConfigKey = ""
+      		End If
+      	End Function
+      	
+      
+      	%REM
+      		Function isValidRequest
+      		Description: Checks if everything is set properly to call the webservice
+      		@ToDo: More accurate checks
+      	%END REM
+      	Private Function isValidRequest()
+      		Dim bReturn As Boolean
+      		bReturn = True
+      		
+      		If Me.apikey = "" Then
+      			bReturn = False
+      		End If
+      		
+      		If Me.systemmessage = "" Then
+      			bReturn = False
+      		End If
+      		
+      		If Me.usermessage = "" Then
+      			bReturn = False
+      		End If
+      		
+      		If Me.modell = "" Then
+      			bReturn = False
+      		End If
+      		
+      		isValidRequest = bReturn
+      	End Function
+      
+      
+      
+      	%REM
+      		Function cGetAPIUrl
+      		Description: Comments for Function
+      		@ToDo: Retrieve this from a configuration
+      	%END REM
+      	Private Function cGetAPIUrl()
+      		cGetAPIUrl = "https://api.openai.com/v1/chat/completions"
+      	End Function
+      	
+      	
+      	%REM
+      		Function cCleanQuery
+      		Description: Removes unwanted characters from the query
+      	%END REM
+      	Private Function cGetQuery(sQuery As String)
+      		Dim sTmp As String 
+      		sTmp = FullTrim(sQuery)
+      		
+      		If sTmp <> "" Then
+      			sTmp = cReplaceSubString(sTmp, |"|, ||)
+      			sTmp = cReplaceSubString(sTmp, |'|, ||)
+      			sTmp = cReplaceSubString(sTmp, |&|, ||)
+      			sTmp = cReplaceSubString(sTmp, Chr(10), ||)
+      			sTmp = cReplaceSubString(sTmp, Chr(9), ||)
+      			sTmp = cReplaceSubString(sTmp, Chr(13), ||)
+      		End If
+      
+      		cGetQuery = FullTrim(sTmp)
+      	End Function
+      
+      
+      	%REM
+      		Function cGetRequestSkeleton
+      		Description: Gets the basic skeleton for a ChatGPT request
+      		@ToDo:	Extend the skeleton
+      	%END REM
+      	Private Function cGetRequestContent()
+      		Dim sData As String
+      		sData = |{
+        			"model": "| + Me.modell + |",
+        			"messages": [ 
+      				{ 
+      				  	"role" : "system", 
+      				  	"content": "| + Me.systemMessage + |"
+      				},
+      				{ 
+      					"role" : "user", 
+      					"content": "| + Me.userMessage + |"
+      				}
+      			],
+        			"temperature": | + Me.temperature + |,
+        			"max_tokens": | + Me.maxtokens + |,
+        			"top_p": | + Me.topp + |,
+        			"frequency_penalty": | + Me.frequencypenalty  + |,
+        			"presence_penalty": | + Me.presencepenalty + |
+      		}|
+      		
+      		cGetRequestContent = sData
+      	End Function
+      
+      
+      
+      	%REM
+      		Function getResponseText
+      		Description: Merges the API-Response-Text (JSON) to a single Text
+      	%END REM
+      	Private Function getResponseAsText(sJSON As String)
+      		Dim sTmp As String
+      	
+      		Dim parser As JSONParser
+      		Dim jsonObj As JSONObject
+      		Dim jsonArr As JSONArray
+      		Dim jsonString As String
+      
+      		Set parser = New JSONParser
+      		Set jsonObj = parser.parse(sJSON)
+      
+      		If jsonObj.HasItem("choices") = True Then
+      			ForAll x In jsonObj.GetItem("choices").Items
+      				sTmp = sTmp + " " + x.GetItem("text")
+      			End ForAll			
+      		End If
+      		
+      		getResponseAsText = sTmp
+      	End Function
+      
+      
+      
+      	%REM
+      		Helper Class
+      	%END REM
+      	Private Function cReplaceSubString(sString As String, sFind As String, sReplace As String)
+      		Dim sReturn As String
+      		Dim sTemp As String
+      		
+      		If sFind = "" Then
+      			cReplaceSubString = sString
+      			Exit Function
+      		End If
+      		
+      		sTemp = sString
+      		Dim i As Double
+      		i = InStr(sTemp, sFind)
+      		
+      		While (i > 0)
+      			sReturn =  sReturn + Left(sTemp, i -1) + sReplace
+      			sTemp = Mid(sTemp, i + Len(sFind))
+      			i = InStr(sTemp, sFind)
+      		Wend
+      		
+      		sReturn = sReturn + sTemp
+      		cReplaceSubString = sReturn
+      	End Function
+      	
+      End Class
+    signed: true
+    nonsummary: true
+  - name: $TITLE
+    type: text
+    data: ChatGPT
+    signed: true
+remaining: []

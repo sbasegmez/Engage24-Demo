@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OFCCBAEDF026ED1D02-ON006C980B80258AFD
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: $RSHistory
+    signed: true
+  - name: $Flags
+    type: text
+    data: 345C~gQ
+  - name: $TITLE
+    type: text
+    data: $RSHistory
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

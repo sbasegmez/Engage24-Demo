@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OF27F716169E52AF95-ON00398B4E00258B00
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: langchain4j-demo-commons-1.0.0-SNAPSHOT.jar
+    signed: true
+  - name: $Flags
+    type: text
+    data: "34567Cg~,"
+  - name: $TITLE
+    type: text
+    data: langchain4j-demo-commons-1.0.0-SNAPSHOT.jar
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

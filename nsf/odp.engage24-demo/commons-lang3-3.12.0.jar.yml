@@ -1,0 +1,23 @@
+---
+class: 4
+flags: 0x0000
+unid: OF995E6448A2E6FD05-ON00713C7D00258AEC
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $FileNames
+    type: text
+    data: commons-lang3-3.12.0.jar
+    signed: true
+  - name: $Flags
+    type: text
+    data: "34567Cg~,"
+  - name: $TITLE
+    type: text
+    data: commons-lang3-3.12.0.jar
+  - name: $FileData
+    type: composite
+    signed: true
+    nonsummary: true
+remaining: []

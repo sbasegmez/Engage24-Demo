@@ -1,0 +1,126 @@
+---
+class: 512
+flags: 0x2000
+unid: OFFD0CDE5FD75B2C8B-ON006347EB00258B05
+items:
+  - name: $DesignerVersion
+    type: text
+    data: 8.5.3
+  - name: $Flags
+    type: text
+    data: s34Q
+  - name: $PublicAccess
+    type: text
+    data: "1"
+    signed: true
+  - name: $ScriptLib
+    type: text
+    data: |
+      '++LotusScript Development Environment:2:5:(Options):0:74
+      %REM
+      	This library is from
+      	@URL 		http://blog.texasswede.com/free-code-class-to-read-url-name-value-pairs/
+      	@Licence 	Free Code, Karl-Henry Martinsson shared this in his blogpost
+      	@Author		Karl-Henry Martinsson
+      	Description: Lotusscript class to handle incoming URL (GET/POST).
+      %END REM
+      Option Public
+      Option Declare
+      
+      
+      '++LotusScript Development Environment:2:5:(Forward):0:1
+      Declare Class URLData
+      
+      '++LotusScript Development Environment:2:5:(Declarations):0:10
+      %REM
+      	Class URLData
+      	Description: Class to handle URL data passed to web agent
+      %END REM
+      Class URLData
+      	p_urldata List As String
+      	
+      	%REM
+      		Sub New()
+      		Description: Create new instance of URL object from NotesDocument 
+      	%END REM
+      	Public Sub New()
+      		Dim session As New NotesSession
+      		Dim webform As NotesDocument
+      		Dim tmp As String
+      		Dim tmparr As Variant  
+      		Dim tmparg As Variant
+      		Dim i As Integer
+      		
+      		'*** Get document context (in-memory NotesDocument)
+      		Set webform = session.DocumentContext
+      		'*** Get HTTP GET argument(s) after ?OpenAgent
+      		tmp = FullTrim(StrRight(webform.GetItemValue("Query_String")(0),"&"))
+      		If tmp = "" Then
+      			'*** Get HTTP POST argument(s) after ?OpenAgent
+      			tmp = FullTrim(StrRight(webform.GetItemValue("Request_Content")(0),"&"))	
+      		End If
+      
+      		'*** Separate name-value pairs from each other into array
+      		tmparr = Split(tmp,"&")
+      		'*** Loop through array, split each name-value/argument 
+      		For i = LBound(tmparr) To UBound(tmparr)
+      			tmparg = Split(tmparr(i),"=")
+      			p_urldata(LCase(tmparg(0))) = Decode(tmparg(1))
+      		Next
+      	End Sub
+      	
+      	%REM
+      		Function GetValue
+      		Description: Get value for specified argument.
+      		Returns a string containing the value.
+      	%END REM
+      	Public Function GetValue(argname As String) As String
+      		If IsElement(p_urldata(LCase(argname))) Then
+      			GetValue = p_urldata(LCase(argname))
+      		Else		
+      			GetValue = ""
+      		End If
+      	End Function
+      	
+      	%REM
+      		Function IsValue
+      		Description: Check if specified argument was passed in URL or not.
+      		Returns boolean value (True or False).
+      	%END REM
+      	Public Function IsValue(argname As String) As Boolean
+      		If IsElement(p_urldata(LCase(argname))) Then
+      			IsValue = True
+      		Else		
+      			IsValue = False	
+      		End If
+      	End Function
+      	
+      	
+      	'*** Private function for this class
+      	'*** There is no good/complete URL decode function in Lotusscript
+      	Private Function Decode(txt As String) As String
+      		
+      		On Error GoTo Errh
+      		
+      		Dim tmp As Variant 
+      		Dim tmptxt As String
+      		tmptxt = Replace(txt,"+"," ")
+      		tmp = Evaluate(|@URLDecode("Domino";"| & tmptxt & |")|)
+      		Decode = tmp(0)
+      
+      		
+      		Exit Function
+      		
+      Errh:
+      		MessageBox "[Decode] Fehler in Zeile: " & Erl() & " - " & Error() & " ---" & Err()
+      		Decode = txt
+      	End Function
+      	
+      End Class
+    signed: true
+    nonsummary: true
+  - name: $TITLE
+    type: text
+    data: URLData
+    signed: true
+remaining: []

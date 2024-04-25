@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:text escape="true" id="computedField2" tagName="h1"
+		value="Few Shots Training...">
+	</xp:text>
+
+	<hr />
+
+	<xp:div styleClass="row my-3">
+		<xp:div styleClass="col-sm-12">
+			<xp:div styleClass="form-group">
+				<xp:label value="Give me a comment:" id="label1"
+					for="comment1" styleClass="h4">
+				</xp:label>
+				<xp:inputTextarea id="comment1"
+					styleClass="commentBox w-50" value="#{viewScope.commentText}">
+					<xp:eventHandler event="onkeypress" submit="false">
+						<xp:this.script><![CDATA[
+						if(thisEvent.keyCode && thisEvent.keyCode==13) {
+							thisEvent.preventDefault();
+							dojo.byId("#{id:submitBtn}").click();
+						}
+						
+						return false;
+						]]></xp:this.script>
+					</xp:eventHandler>
+				</xp:inputTextarea>
+				<xp:button styleClass="submitButton btn btn-primary my-4" id="submitBtn"
+					value="Submit">
+					<i class="fa fa-share" />
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="partial" refreshId="checkResults">
+						<xp:this.action>
+							<xp:executeScript
+								script="#{prompts.checkComment}">
+							</xp:executeScript>
+						</xp:this.action>
+						<xp:this.onStart><![CDATA[$(".commentBox").addClass("loading-indicator")]]></xp:this.onStart>
+						<xp:this.onComplete><![CDATA[$(".commentBox").removeClass("loading-indicator")]]></xp:this.onComplete>
+					</xp:eventHandler>
+				</xp:button>
+			</xp:div>
+		</xp:div>
+	</xp:div>
+
+	<xp:div id="checkResults" styleClass="row my-3 mx-4">
+		<xp:text styleClass="h3 text-success"
+			value="#{viewScope.checkResult}" />
+	</xp:div>
+
+
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+
+	<!-- <xp:text id="test1112" value="${el:semantic.searchSemanticLocal('logging')}"></xp:text> -->
+</xp:view>
