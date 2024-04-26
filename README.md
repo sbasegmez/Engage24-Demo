@@ -3,7 +3,7 @@
 
 This repository supports the session "Experimenting with Integrating Large Language Models into Domino Apps" at Engage 2024.
 
-Please note that some of the code requires the project database from OpenNTF, which is not publicly available. However, you can still use this database as a reference and modify the code to utilize your own data. We also employ the `LocalModels` class from the [Domino-LangChain4j](https://github.com/sbasegmez/domino-langchain4j) project.
+You can see the slide deck [here](https://speakerdeck.com/sbasegmez/engage-2024-experimenting-with-integrating-large-language-models-into-domino-apps). Please note that some of the code requires the project database from OpenNTF, which is not publicly available. However, you can still use this database as a reference and modify the code to utilize your own data. We also employ the `LocalModels` class from the [Domino-LangChain4j](https://github.com/sbasegmez/domino-langchain4j) project.
 
 ### Repository Modules
 
