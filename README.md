@@ -31,6 +31,19 @@ This module includes an experimental Java addin intended to run on the server. C
 
 The [ODP project](nsf%2Fodp.engage24-demo) for the demo NSF. You can see how langchain4j is implemented in java classes in [com.developi.llm]([llm](nsf%2Fodp.engage24-demo%2FCode%2FJava%2Fcom%2Fdevelopi%2Fllm)) package. 
 
+#### Running a QDrant Instance
+
+[Upload2QDrantDemo.java](langchain4j-demos-cli%2Fsrc%2Fmain%2Fjava%2Fcom%2Fdevelopi%2Fllm%2Fpmtdemos%2FUpload2QDrantDemo.java) accesses a local instance of the QDrant. Easiest way to run QDrant on your environment is Docker (or podman):
+
+```cli
+docker run -p 6333:6333 -p 6334:6334 \
+    -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+    qdrant/qdrant
+```
+
+This will launch a QDrant instance without any security. 
+
+
 Feel free to play with it. Currently, it needs designer and server plugins from the [Domino-LangChain4j](https://github.com/sbasegmez/domino-langchain4j) project and also a Vector store prepared in the Qdrant server. Semantic search will look for embedding config documents for local and cloud model examples. Fulltext search will need the OpenNTF project database which is not publicly available.
 
 You may define OpenAI Api key in xsp.properties file (in the database or in the server).
